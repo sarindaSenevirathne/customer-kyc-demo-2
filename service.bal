@@ -1,13 +1,20 @@
 import ballerina/http;
 
+#Example:
+// #  "address": {
+//         "address1": "456 Diagon Alley",
+//         "city": "Toronto",
+//         "postal_code": "M4C 1M5",
+//         "region": "",
+//         "country": "CA"
+//     }
 type Address record {
-    string streetNumber;
-    string line1;
-    string line2;
-    string state;
+    string address1;
+    string city;
+    string postal_code;
+    string region;
     string country;
 };
-
 
 
 # A service representing a network-accessible API
@@ -19,8 +26,8 @@ service / on new http:Listener(9090) {
     # + return - HTTP Ok if the address is found, otherwise HTTP Not found
     resource function post maps/address/validate(@http:Payload Address address) returns Address|error? {
 
-        if address.streetNumber == "" { 
-            return error("unable to find the address" + address.streetNumber);
+        if address.address1 == "" { 
+            return error("unable to find the address" + address.address1);
         } else {
             return address;
         }
